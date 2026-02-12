@@ -22,6 +22,10 @@ public class UserController {
     public ResponseEntity<Iterable<UserDTO>> getAllUsers(){
         return new ResponseEntity<>(userService.getAllUsers(),HttpStatus.OK);
     }
+    @GetMapping("/email/{email}")
+    public ResponseEntity<UserDTO> getUserByEmail(@PathVariable String email){
+        return new ResponseEntity<>(userService.getUserByEmail(email),HttpStatus.OK);
+    }
 
 
 }

@@ -1,7 +1,9 @@
 package com.example.Services;
 
 import com.example.DTO.UserDTO;
+import com.example.Entity.Provider;
 import com.example.Entity.User;
+import com.example.Exception.ResourceNotFoundException;
 import com.example.Repositories.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -20,18 +22,23 @@ public class UserServiceImpl implements UserService{
     @Override
     @Transactional
     public UserDTO createUser(UserDTO userDTO) {
-       User user= modelMapper.map(userDTO, User.class);
-        User savedUser=userRepository.save(user);
-        return modelMapper.map(savedUser,UserDTO.class);
+        if (userRepository.existsByEmail(userDTO.getEmail())) {
+            throw new IllegalArgumentException("User with this email already exists");
+        }
+        User user = modelMapper.map(userDTO, User.class);
+        user.setEnable(true);
+        user.setProvider(Provider.LOCAL);
+        User savedUser = userRepository.save(user);
+        return  modelMapper.map(savedUser, UserDTO.class);
     }
 
+
     @Override
+    @Transactional
     public UserDTO getUserByEmail(String email) {
-//        User user = userRepository
-//                .findByEmail(email)
-//                .orElseThrow(() -> new ResourceNotFoundException("User not found with given email id "));
-//        return modelMapper.map(user,UserDTO.class);
-        return null;
+        User user= userRepository.findByEmail(email)
+                .orElseThrow(()-> new ResourceNotFoundException("user not found with given email ID !!"));
+        return modelMapper.map(user,UserDTO.class);
     }
 
     @Override
@@ -45,6 +52,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    @Transactional
     public Iterable<UserDTO> getAllUsers() {
         return userRepository.findAll()
                 .stream()
