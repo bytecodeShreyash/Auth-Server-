@@ -1,0 +1,294 @@
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* Root Variables */
+:root {
+    --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --background-dark: #0a0a0a;
+    --surface-dark: #1a1a1a;
+    --surface-light: #2a2a2a;
+    --border-color: #333;
+    --text-primary: #ffffff;
+    --text-secondary: #888;
+    --error-color: #ff6b6b;
+    --success-color: #51cf66;
+}
+
+/* Global Styles */
+html {
+    --lumo-font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: var(--background-dark);
+    font-family: var(--lumo-font-family);
+}
+
+body {
+    background-color: var(--background-dark);
+    color: var(--text-primary);
+    margin: 0;
+    padding: 0;
+}
+
+/* View Containers */
+.login-view,
+.register-view {
+    background-color: var(--background-dark);
+    min-height: 100vh;
+    padding: 0;
+}
+
+/* Header Styles */
+.app-header {
+    padding: 1rem 2rem;
+    background-color: rgba(26, 26, 26, 0.8);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border-color);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
+
+.app-title {
+    color: var(--text-primary);
+    font-weight: 600;
+    font-size: 1.25rem;
+}
+
+.theme-toggle,
+.nav-button {
+    color: var(--text-primary) !important;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.theme-toggle:hover,
+.nav-button:hover {
+    background-color: var(--surface-light) !important;
+    transform: translateY(-2px);
+}
+
+/* Form Container */
+.login-form-container,
+.register-form-container {
+    background: var(--surface-dark);
+    border-radius: 16px;
+    padding: 2.5rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    border: 1px solid var(--border-color);
+    margin-top: 80px;
+    animation: fadeInUp 0.5s ease;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Form Title */
+.form-title {
+    color: var(--text-primary);
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0 0 0.5rem 0;
+}
+
+.form-subtitle {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    margin: 0 0 2rem 0;
+}
+
+/* Input Fields */
+.auth-field {
+    margin-bottom: 1rem;
+}
+
+.auth-field input {
+    background-color: var(--surface-light) !important;
+    border: 1px solid var(--border-color) !important;
+    border-radius: 8px !important;
+    color: var(--text-primary) !important;
+    padding: 0.75rem 1rem !important;
+    font-size: 0.95rem !important;
+    transition: all 0.3s ease;
+}
+
+.auth-field input:focus {
+    border-color: #667eea !important;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1) !important;
+    background-color: var(--surface-dark) !important;
+}
+
+.auth-field input::placeholder {
+    color: var(--text-secondary) !important;
+}
+
+.auth-field label {
+    color: var(--text-primary) !important;
+    font-weight: 500 !important;
+    margin-bottom: 0.5rem !important;
+    font-size: 0.9rem !important;
+}
+
+/* Vaadin Field Prefix Icons */
+.auth-field vaadin-icon {
+    color: var(--text-secondary) !important;
+}
+
+/* Primary Button */
+.primary-button {
+    background: var(--primary-gradient) !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 8px !important;
+    padding: 0.875rem 1.5rem !important;
+    font-weight: 600 !important;
+    font-size: 1rem !important;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 1rem;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.primary-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4) !important;
+}
+
+.primary-button:active {
+    transform: translateY(0);
+}
+
+/* OAuth Buttons */
+.oauth-button {
+    background-color: var(--surface-light) !important;
+    color: var(--text-primary) !important;
+    border: 1px solid var(--border-color) !important;
+    border-radius: 8px !important;
+    padding: 0.875rem 1.5rem !important;
+    font-weight: 500 !important;
+    margin-bottom: 0.75rem;
+    transition: all 0.3s ease;
+}
+
+.oauth-button:hover {
+    background-color: var(--surface-dark) !important;
+    border-color: #444 !important;
+    transform: translateY(-2px);
+}
+
+/* Divider */
+.divider {
+    position: relative;
+    text-align: center;
+    margin: 1.5rem 0;
+}
+
+.divider::before,
+.divider::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 45%;
+    height: 1px;
+    background-color: var(--border-color);
+}
+
+.divider::before {
+    left: 0;
+}
+
+.divider::after {
+    right: 0;
+}
+
+/* Footer Links */
+.footer-link {
+    color: #667eea !important;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.footer-link:hover {
+    color: #764ba2 !important;
+    text-decoration: underline;
+}
+
+/* Error Message */
+.error-message {
+    background-color: rgba(255, 107, 107, 0.1);
+    border: 1px solid rgba(255, 107, 107, 0.3);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    margin-top: 0.5rem;
+    animation: shake 0.3s ease;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+/* Vaadin Notification Overrides */
+vaadin-notification-card {
+    background-color: var(--surface-dark) !important;
+    color: var(--text-primary) !important;
+    border: 1px solid var(--border-color) !important;
+    border-radius: 8px !important;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .login-form-container,
+    .register-form-container {
+        width: 90% !important;
+        padding: 1.5rem;
+        margin-top: 100px;
+    }
+
+    .app-header {
+        padding: 1rem;
+    }
+
+    .form-title {
+        font-size: 1.5rem;
+    }
+}
+
+/* Smooth Transitions */
+* {
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--background-dark);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--surface-light);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #444;
+}
+
+/* Focus Visible */
+*:focus-visible {
+    outline: 2px solid #667eea;
+    outline-offset: 2px;
+}
