@@ -11,10 +11,10 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class AuthServiceImpl implements AuthService {
     private final UserService userService;
-   // private  final PasswordEncoder passwordEncoder;
+   private  final PasswordEncoder passwordEncoder;
     @Override
     public UserDTO registerUser(UserDTO userDto) {
-       // userDto.setPassword(passwordEncoder.encode(userDto.getPassword()));
+        userDto.setPassword(passwordEncoder.encode(userDto.getPassword()));
         return userService.createUser(userDto);
     }
 }
