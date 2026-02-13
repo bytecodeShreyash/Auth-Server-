@@ -6,8 +6,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/users")
@@ -26,6 +25,13 @@ public class UserController {
     public ResponseEntity<UserDTO> getUserByEmail(@PathVariable String email){
         return new ResponseEntity<>(userService.getUserByEmail(email),HttpStatus.OK);
     }
-
+    @GetMapping("/{id}")
+    public ResponseEntity<UserDTO> getUserByUUID(@PathVariable UUID id){
+        return new ResponseEntity<>(userService.getUserById(id),HttpStatus.OK);
+    }
+    @PutMapping("/{userId}")  //api/v1/users/{userId}
+    public ResponseEntity<UserDTO> updateUser(@RequestBody UserDTO userDto, @PathVariable("userId") String userId) {
+        return ResponseEntity.ok(userService.updateUser(userDto, userId));
+    }
 
 }

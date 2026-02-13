@@ -1,20 +1,23 @@
-package com.example.Services;
+package com.example.Services.Impl;
 
 import com.example.DTO.UserDTO;
 import com.example.Entity.Provider;
 import com.example.Entity.User;
 import com.example.Exception.ResourceNotFoundException;
 import com.example.Repositories.UserRepository;
+import com.example.Services.UserService;
+import com.example.Utils.UserHelper;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.time.Instant;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
@@ -42,13 +45,29 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public UserDTO updateUser(UserDTO userDTO, String userID) {
-        return null;
+    @Transactional
+    public UserDTO updateUser(UserDTO userDto, String userId) {
+        UUID uId = UserHelper.parseUUID(userId);
+        User existingUser = userRepository
+                .findById(uId)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with given id"));
+        if (userDto.getName() != null) existingUser.setName(userDto.getName());
+        if (userDto.getImage() != null) existingUser.setImage(userDto.getImage());
+        if (userDto.getProvider() != null) existingUser.setProvider(userDto.getProvider());
+        existingUser.setEnable(userDto.isEnable());
+        existingUser.setUpdatedAt(Instant.now());
+        User updatedUser = userRepository.save(existingUser);
+        return modelMapper.map(updatedUser, UserDTO.class);
     }
 
     @Override
+    @Transactional
     public void deleteUserById(String userID) {
+        UUID uuid= UserHelper.parseUUID(userID);
+        User user=userRepository.findById(uuid)
+                .orElseThrow(()-> new ResourceNotFoundException("user not found with given email ID !!"));
 
+        userRepository.delete(user);
     }
 
     @Override
@@ -60,6 +79,16 @@ public class UserServiceImpl implements UserService{
                 .toList();
     }
 
+    @Override
+    @Transactional
+    public UserDTO getUserById(UUID id) {
+
+        User user = userRepository.findById(id)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("User not found with given UUID"));
+
+        return modelMapper.map(user, UserDTO.class);
+    }
 
 
 }
